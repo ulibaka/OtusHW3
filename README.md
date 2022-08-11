@@ -47,7 +47,6 @@ ___
 
 #### подготавливаем место для временного перемещения
 ```
-[root@lvm ~]# yum install xfsdump
 [root@lvm ~]# pvcreate /dev/sdb
 [root@lvm ~]# vgcreate vg_root /dev/sdb
 [root@lvm ~]# lvcreate -n lv_root -l+100%FREE /dev/vg_root
