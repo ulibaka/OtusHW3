@@ -39,7 +39,7 @@ ___
   0 LVM physical volume whole disks
   1 LVM physical volume
 ```
-###1. Уменьшаем том / до 8GB
+- 1. Уменьшаем том / до 8GB
 
 ###ставим пакет xfsdump:
 
