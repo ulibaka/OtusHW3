@@ -161,3 +161,17 @@ sde                        8:64   0    1G  0 disk
 file1  file10  file11  file12  file13  file14  file15  file16  file17  file18  file19  file2  file20  file3  file4  file5  file6  file7  file8  file9
 
 ```
+- 4 Добавляем сюда /opt
+
+```
+[root@lvm ~]# pvcreate /dev/sde
+[root@lvm ~]# vgcreate vgopt /dev/sde
+[root@lvm ~]# lvcreate -L1G -nlvopt vgopt
+[root@lvm ~]# mkfs.ext4 /dev/vgopt/lvopt 
+[root@lvm ~]# mount /dev/vgopt/lvopt /opt
+[root@lvm ~]# df -Th /opt/
+Filesystem              Type  Size  Used Avail Use% Mounted on
+/dev/mapper/vgopt-lvopt ext4  988M  2.6M  919M   1% /opt
+```
+
+
