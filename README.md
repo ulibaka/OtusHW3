@@ -104,7 +104,7 @@ WARNING: xfs signature detected on /dev/VolGroup00/LogVol00 at offset 0. Wipe it
 [root@lvm /]#  grub2-mkconfig -o /boot/grub2/grub.cfg
 [root@lvm /]#  cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g;
 ```
-#### Перенос /var
+- 2 Перенос /var
 ```
 [root@lvm boot]# pvcreate /dev/sdc /dev/sdd
   Physical volume "/dev/sdc" successfully created.
