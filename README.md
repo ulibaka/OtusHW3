@@ -150,7 +150,7 @@ sdd                        8:48   0    1G  0 disk
   └─vg_var-lv_var        253:7    0  952M  0 lvm  /var
 sde                        8:64   0    1G  0 disk 
 ```
-#### Выделяем том под /home
+- 3 Выделяем том под /home
 ```
 [root@lvm ~]#  mount /dev/VolGroup00/LogVol_Home /mnt/
 [root@lvm ~]#  cp -aR /home/* /mnt/
