@@ -88,11 +88,7 @@ sde                       8:64   0    1G  0 disk
 ```
 [vagrant@lvm ~]$ sudo -i
 [root@lvm ~]#  lvremove /dev/VolGroup00/LogVol00 
-Do you really want to remove active logical volume VolGroup00/LogVol00? [y/n]: y
-  Logical volume "LogVol00" successfully removed
 [root@lvm ~]# lvcreate -n VolGroup00/LogVol00 -L 8G /dev/VolGroup00
-WARNING: xfs signature detected on /dev/VolGroup00/LogVol00 at offset 0. Wipe it? [y/n]: y
-  Wiping xfs signature on /dev/VolGroup00/LogVol00.
   Logical volume "LogVol00" created.
 
 [root@lvm ~]#  mkfs.xfs /dev/VolGroup00/LogVol00
@@ -106,18 +102,9 @@ WARNING: xfs signature detected on /dev/VolGroup00/LogVol00 at offset 0. Wipe it
 - 2 Перенос /var
 ```
 [root@lvm boot]# pvcreate /dev/sdc /dev/sdd
-  Physical volume "/dev/sdc" successfully created.
-  Physical volume "/dev/sdd" successfully created.
 [root@lvm boot]# vgcreate vg_var /dev/sdc /dev/sdd
-  Volume group "vg_var" successfully created
 [root@lvm boot]#  lvcreate -L 950M -m1 -n lv_var vg_var
-  Rounding up size to full physical extent 952.00 MiB
-  Logical volume "lv_var" created.
 [root@lvm boot]#  mkfs.ext4 /dev/vg_var/lv_var
-Allocating group tables: done                            
-Writing inode tables: done                            
-Creating journal (4096 blocks): done
-Writing superblocks and filesystem accounting information: done
 
 [root@lvm boot]#  mount /dev/vg_var/lv_var /mnt
 [root@lvm boot]#  cp -aR /var/* /mnt/ 
