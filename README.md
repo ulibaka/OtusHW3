@@ -99,7 +99,7 @@ sde                       8:64   0    1G  0 disk
 [root@lvm /]#  grub2-mkconfig -o /boot/grub2/grub.cfg
 [root@lvm /]#  cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g;
 ```
-- 2 Перенос /var
+- 2 Создание mirror и перенос /var
 ```
 [root@lvm boot]# pvcreate /dev/sdc /dev/sdd
 [root@lvm boot]# vgcreate vg_var /dev/sdc /dev/sdd
