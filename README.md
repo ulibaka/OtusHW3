@@ -126,7 +126,7 @@ Writing superblocks and filesystem accounting information: done
 [root@lvm mnt]# mount /dev/vg_var/lv_var /var
 [root@lvm mnt]# echo "`blkid | grep var: | awk '{print $2}'` /var ext4 defaults 0 0" >> /etc/fstab
 ```
-#### Перезагружаемся проверяем*
+#### Перезагружаемся проверяем
 ```
 [vagrant@lvm ~]$ lsblk 
 NAME                     MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
