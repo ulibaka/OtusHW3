@@ -24,7 +24,7 @@ ___
 
 # проверяем наличие дисков в системе:
 
-# lvmdiskscan 
+```# lvmdiskscan 
   /dev/VolGroup00/LogVol00 [     <37.47 GiB] 
   /dev/VolGroup00/LogVol01 [       1.50 GiB] 
   /dev/sda2                [       1.00 GiB] 
@@ -36,7 +36,7 @@ ___
   4 disks
   3 partitions
   0 LVM physical volume whole disks
-  1 LVM physical volume
+  1 LVM physical volume```
 
 **1. Уменьшаем том / до 8GB**
 
