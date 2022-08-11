@@ -66,9 +66,9 @@ ___
 [root@lvm ~]# sed -i 's/VolGroup00\/LogVol00/vg_root\/lv_root/g' /boot/grub2/grub.cfg 
 ```
 
-Выходим из chroot и reboot
-Проверяем:
-
+### Выходим из chroot и reboot
+### Проверяем: 
+```
 $ vagrant ssh
 Last login: Wed Aug 10 08:11:55 2022 from 10.0.2.2
 [vagrant@lvm ~]$ lsblk 
@@ -84,8 +84,9 @@ sdb                       8:16   0   10G  0 disk
 sdc                       8:32   0    2G  0 disk 
 sdd                       8:48   0    1G  0 disk 
 sde                       8:64   0    1G  0 disk 
-
-*Удаляем старый раздел и создаем заново с размером 8GB*
+```
+### Удаляем старый раздел и создаем заново с размером 8GB
+```
 [vagrant@lvm ~]$ sudo -i
 [root@lvm ~]#  lvremove /dev/VolGroup00/LogVol00 
 Do you really want to remove active logical volume VolGroup00/LogVol00? [y/n]: y
@@ -102,9 +103,9 @@ WARNING: xfs signature detected on /dev/VolGroup00/LogVol00 at offset 0. Wipe it
 [root@lvm ~]# chroot /mnt/
 [root@lvm /]#  grub2-mkconfig -o /boot/grub2/grub.cfg
 [root@lvm /]#  cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g;
-
-*Перенос /var*
-
+```
+### Перенос /var
+```
 [root@lvm boot]# pvcreate /dev/sdc /dev/sdd
   Physical volume "/dev/sdc" successfully created.
   Physical volume "/dev/sdd" successfully created.
@@ -124,9 +125,9 @@ Writing superblocks and filesystem accounting information: done
 [root@lvm mnt]#  umount /mnt
 [root@lvm mnt]# mount /dev/vg_var/lv_var /var
 [root@lvm mnt]# echo "`blkid | grep var: | awk '{print $2}'` /var ext4 defaults 0 0" >> /etc/fstab
-
-*Перезагружаемся проверяем*
-
+```
+### Перезагружаемся проверяем*
+```
 [vagrant@lvm ~]$ lsblk 
 NAME                     MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 sda                        8:0    0   40G  0 disk 
@@ -148,18 +149,18 @@ sdd                        8:48   0    1G  0 disk
 └─vg_var-lv_var_rimage_1 253:6    0  952M  0 lvm  
   └─vg_var-lv_var        253:7    0  952M  0 lvm  /var
 sde                        8:64   0    1G  0 disk 
-
-*Выделяем том под /home*
-
+```
+### Выделяем том под /home
+```
 [root@lvm ~]#  mount /dev/VolGroup00/LogVol_Home /mnt/
 [root@lvm ~]#  cp -aR /home/* /mnt/
 [root@lvm ~]#  rm -rf /home/*
 [root@lvm ~]# umount /mnt
 [root@lvm ~]#  mount /dev/VolGroup00/LogVol_Home /home/
 [root@lvm ~]# echo "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fstab
-
-*Создаем файлы, удаляем и восстанавливаем*
-
+```
+#### Создаем файлы, удаляем и восстанавливаем
+```
 [root@lvm ~]# touch /home/file{1..20}
 [root@lvm ~]#  lvcreate -L 100MB -s -n home_snap /dev/VolGroup00/LogVol_Home
   Rounding up size to full physical extent 128.00 MiB
@@ -173,4 +174,4 @@ sde                        8:64   0    1G  0 disk
 [root@lvm ~]# ls /home/
 file1  file10  file11  file12  file13  file14  file15  file16  file17  file18  file19  file2  file20  file3  file4  file5  file6  file7  file8  file9
 
-
+```
