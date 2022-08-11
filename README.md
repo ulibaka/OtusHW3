@@ -41,11 +41,11 @@ ___
 
 ###1. Уменьшаем том / до 8GB
 
-ставим пакет xfsdump:
+```ставим пакет xfsdump:
 
 yum install xfsdump
 
-** подготавливаем место для временного перемещения**
+### подготавливаем место для временного перемещения
 
 [root@lvm ~]# yum install xfsdump
 [root@lvm ~]# pvcreate /dev/sdb
@@ -54,16 +54,16 @@ yum install xfsdump
 [root@lvm ~]# mkfs.xfs /dev/vg_root/lv_root
 [root@lvm ~]# mount /dev/vg_root/lv_root /mnt
 
-**Переносим данные в /mnt**
+###Переносим данные в /mnt
 
 [root@lvm ~]# xfsdump -J - /dev/VolGroup00/LogVol00 | xfsrestore -J - /mnt
 
-**Перенастраиваем grub для загрузки с нового раздела**
+###Перенастраиваем grub для загрузки с нового раздела
 
 [root@lvm ~]# for i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /mnt/$i; done
 [root@lvm ~]# chroot /mnt/
 [root@lvm ~]#  cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g; s/.img//g"` --force; done
-[root@lvm ~]# sed -i 's/VolGroup00\/LogVol00/vg_root\/lv_root/g' /boot/grub2/grub.cfg 
+[root@lvm ~]# sed -i 's/VolGroup00\/LogVol00/vg_root\/lv_root/g' /boot/grub2/grub.cfg ```
 
 Выходим из chroot и reboot
 Проверяем:
